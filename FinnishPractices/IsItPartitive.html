@@ -1,0 +1,169 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link rel="stylesheet" href="style.css">
+		<title>Is it partitive?</title>
+	</head>
+	
+	<body>
+	    <!--
+		<a>
+            <div class="return">
+                <img scr="Arrow.png" style="widht:1vw;height:1vw;">
+            </div> 
+        </a>
+		-->
+	    <center>
+	        
+	        
+	        <div>
+	            
+	        </div>
+	        <div class="header" style="width:32vw;height:8vw">
+	            <h1 style="">Is it partitive?</h1>
+	        </div>
+	        
+	        <div class="main" style="width:32vw;height:32vw;padding:1.5vw;font-size:0px;">
+	            
+    	        <h3 id="title"style="margin-bottom:1vw;">Question 1</h3>
+        		<p id="score" style="margin-bottom:1vw;">Score: </p>
+        		<p id="E" style="font-weight:bold; margin-bottom:1vw;">The Sentence in Enlish</p>
+        
+        		<p id="F" style="font-weight: bold;margin-bottom:1vw;">In Finnish:</p>
+        		<p id="Oikein" style="margin-bottom:1vw">Choose correct word</p>
+        		<button id="B1"   class="button button1" type="button" onClick="CheckTheAnswer('1')" style="margin-right:1vw;margin-left:1vw;margin-bottom:1vw;display:inline-block;user-select: none;" ><p id="1"></p></button>
+        		<button id="B2"   class="button button1" type="button" onClick="CheckTheAnswer('2')" style="margin-left:1vw;margin-right:1vw;margin-bottom:1vw;display: inline-block;user-select: none;"><p id="2"></p></button>
+
+        		<button id="next" class="button button1" type="button" onClick="NewQuestion(Math.floor(Math.random() * (Lauseet.length - 1)))" style="margin-left:2vw;margin-right:2vw;background-color:#777877;user-select: none;" ><p>Next question</p></button>
+	        </div>
+	    </center>
+	    
+		
+	</body>
+	<script>
+		var question = 0
+		var CorrectAnswer = 1
+		
+		class Lause {
+		  constructor(English, Finnish, AnswerOne,AnswerTwo, CorrectAnswer) {
+			this.English = English;
+			this.Finnish = Finnish;
+			this.AnswerOne = AnswerOne
+			this.AnswerTwo = AnswerTwo
+			this.CorrectAnswer = CorrectAnswer
+		  }
+		}
+		let Lauseet = [
+		new Lause("Do you have coffee?", "Onko sinulla _____? ", "kahvi", "kahvia",2),
+		new Lause("Where is the cat?", "Missä on _____?", "kissa", "kissaa",1),
+		new Lause("He is beatiful?", "Hän on ", "kaunis", "kaunista",1),
+		new Lause("I don't want a phone", "En halua _____", "puhelin", "puhelinta", 2),
+		new Lause("Wonderful sunset", "Ihana _____", "auringonlasku", "auringonlaskua", 1),
+		new Lause("I play guitar", "Minä soitan _____", "kitara", "kitaraa", 2),
+		new Lause("Finnish is difficult", "Suomenkieli on _____", "vaikea", "vaikeaa", 2),
+		new Lause("Life is fun", "Elämä on _____", "hauska", "hauskaa", 2),
+		new Lause("It is raining outside", "Ulkona _____", "sade", "sataa", 2),
+		new Lause("How many apples?", "kuinka monta _____?", "omena", "omenaa", 2),
+		new Lause("Hungarian isn't easy", "Unkarinkieli ei ole _____", "helppo", "helppoa", 2),
+		new Lause("Do you want to listen to radio?", "Haluatko kuunnella _____?", "radio", "radiota", 2),
+		new Lause("Good night", "_____", "Hyvä yö", "Hyvää yötä", 2),
+		new Lause("Making sentences up is difficult", "Lauseiden keksiminen on _____", "vaikea", "vaikeaa", 2),
+		new Lause("Where is the field?", "Missä on _____", "kenttä", "kenttää", 1),
+		new Lause("We have two dogs", "Meillä on kaksi _____", "koira", "koiraa", 2),
+		new Lause("Where is the ketchup?", "Missä on _____?", "ketsuppi", "ketsuppia", 1),
+		new Lause("He has many cats", "Hänellä on monta _____", "kissa", "kissaa", 2),
+		new Lause("Do you have ketchup?", "Onko sinulla _____?", "ketsuppi", "ketsuppia", 2),
+		new Lause("the rice is hot", "Riisi on _____", "kuuma", "kuumaa", 2),
+		new Lause("I watch television", "Katson _____", "televisio", "televisiota", 2),
+		new Lause("I have a hat", "Minulla on _____", "hattu", "hattua", 1),
+		new Lause("Where is the shop", "Missä on _____", "kauppa", "kauppaa", 1),
+		new Lause("He is seeing a dream", "hän näkee _____", "uni", "unta", 2),
+		new Lause("Is your favourite drink coffee", "Onko sinun lempijuomasi _____?", "kahvi", "kahvia", 1),
+		new Lause("Do you have ketchup?", "Onko sinulla _____?", "ketsuppi", "ketsuppia", 2),
+		new Lause("it is difficult to follow the car","_____ on vaikea seurata", "auto", "autoa", 2),
+		new Lause("Is Ahvenanmaa part of Finland?", "Onko Ahvenanmaa osa _____?", "Suomi", "Suomea", 2),
+		new Lause("who is heating up the sauna?", "kuka lämmittää _____?", "sauna", "saunaa", 2),
+		new Lause("The Cat is fast and agile", "_____ on nopea ja ketterä", "kissa", "kissaa", 1),
+		new Lause("apple is rotten", "_____ on mätä", "omena", "omenaa", 1),
+		new Lause("Is the dog sick?", "Onko _____ kipeä?", "koira", "koiraa", 1),
+		new Lause("Television is broken", "_____ on rikki", "Televisio", "Televisiota", 1),
+		new Lause("I am knittin a hat", "Neulon ______", "pipo", "pipoa", 2),
+		new Lause("Do you want ketchup?", "Haluatko _____ ?", "ketsuppi", "ketsuppia", 2),
+		new Lause("Guitar sounds good", "_____ kuullostaa hyvältä", "kitara", "kitaraa", 1),
+		new Lause("dream is like a thought", "_____ on kuin ajatus", "uni", "unta", 1),
+		new Lause("Easy job", "_____ homma", "helppo", "helppoa", 1),
+		new Lause("I want to watch a sunset", "Haluan katsoa _____?", "auringonlasku", "auringonlaskua", 2),
+		new Lause("The music is beatiful", "Musiikki on _____?", "kaunis", "kaunista", 2),
+		new Lause("Radio is working well", "_____ toimii hyvin", "radio", "radiota", 1),
+		new Lause("Kids can pet the dog", "Lapset voivat silittää _____", "koira", "koiraa", 2),
+		new Lause("Night is cold", "_____ on kylmä", "yö", "yötä", 1),
+		new Lause("Come home before night", "Tule kotiin ennen _____", "yö", "yötä", 2),
+		new Lause("Kids can pet the dog", "Lapset voivat silittää _____", "koira", "koiraa", 2),
+		new Lause("This is a difficult question", "Tämä on _____ kysymys", "vaikea", "vaikeaa", 1),
+		new Lause("I need help", "tarvitsen _____", "apu", "apua", 2),
+		new Lause("Finland is beatiful and cold country", "_____ on kaunis ja kylmä maa", "Suomi", "Suomea", 1),
+		new Lause("Can you speak finnish?", "Puhutko _____", "suomi", "suomea", 2),
+		
+		]
+		const LauseetBackup = Lauseet;
+		var CurrentQuestion = Math.floor(Math.random() * (Lauseet.length - 1));
+		var correct = 0
+		var answered = true;
+		var unLockColor = window.getComputedStyle(document.getElementById("B1"), null).getPropertyValue("background-color");
+		console.log(unLockColor);
+		var LockColor = "#777877";
+		NewQuestion(CurrentQuestion);
+		
+		function NewQuestion(index){
+		    if(answered == true){
+		        question++;
+    			document.getElementById("title").innerHTML = "Question " + question;
+    			document.getElementById("E").innerHTML = Lauseet[index].English;
+    			document.getElementById("F").innerHTML = Lauseet[index].Finnish;
+    			document.getElementById("1").innerHTML = Lauseet[index].AnswerOne;
+    			document.getElementById("2").innerHTML = Lauseet[index].AnswerTwo;
+
+    			CorrectAnswer = Lauseet[index].CorrectAnswer
+    			document.getElementById("Oikein").innerHTML = "Choose correct word"
+    			Lauseet.splice(index, 1);
+    			if(Lauseet.length <= 0){
+    			    Lauseet = LauseetBackup;
+    			}
+    			answered = false;
+    		
+    			document.getElementById("B1").style.backgroundColor = unLockColor;
+                document.getElementById("B2").style.backgroundColor = unLockColor;
+    			document.getElementById("next").style.backgroundColor = LockColor;
+    			
+		    }
+			
+		}
+		
+		function CheckTheAnswer(num){
+		    if(answered == false){
+		        
+		        
+		        
+		        if (num == CorrectAnswer)
+		        {
+    				document.getElementById("Oikein").innerHTML = "True"
+    				correct++
+    			}
+    			else
+    			{
+    				document.getElementById("Oikein").innerHTML = "False"
+    			}
+    			document.getElementById("score").innerHTML = "Score: " + correct + "/" + question; 
+    			
+    			document.getElementById("B1").style.backgroundColor = LockColor;
+                document.getElementById("B2").style.backgroundColor = LockColor;
+    			document.getElementById("next").style.backgroundColor = unLockColor;
+    			
+		    }
+			
+			answered = true
+			
+		}
+			
+	</script>
+</html>
